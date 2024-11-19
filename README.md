@@ -1,4 +1,66 @@
-# Getting Started with Create React App
+# Ques.AI
+
+## Podcast Transcription Management Tool
+
+- This project is a **Podcast Transcription Management Tool** that enables users to view,edit, add,delete podcast , transcripts. 
+- It incorporates user authentication, secure API integration, and an intuitive interface for managing podcast-related data.
+
+---
+
+
+## Technologies Used
+### Frontend:
+- **React.js**: Framework for building the user interface.
+- **Axios**: For making HTTP requests to the backend.
+- **React Router**: For navigation between pages.
+  
+### Backend:
+- **Node.js** and **Express.js**: RESTful APIs for handling data and authentication.
+
+### Deployment:
+- **Netlify**: Frontend deployment.
+- **Render.com**: Backend API hosting.
+
+
+## Installation and Setup
+### Steps:
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/gitusergb/-Skailama
+   ```
+
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+3. Start the development server:
+   ```bash
+   npm start
+   ```
+---
+
+## Contributor
+
+**Gauri Bidwai**  
+- GitHub: [github.com/gitusergb](https://github.com/gitusergb)  
+- Netlify Deployment: [https://dapper-crisp-1a12ab.netlify.app/](https://dapper-crisp-1a12ab.netlify.app/)
+
+<!-- 
+
+https://i.ibb.co/gZn9H1F/full-logo.png
+https://i.ibb.co/VQSL5sb/login-img.png
+https://i.ibb.co/m53Ssh1/logo.png 
+https://i.ibb.co/D5VZttX/google.png
+https://i.ibb.co/k5bKgCK/new-Project.png
+
+-->
+
+<!-- render link : https://podcastbe.onrender.com/ 
+        N link : https://dapper-crisp-1a12ab.netlify.app/
+-->
+
+<!-- # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
@@ -67,4 +129,4 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 
 ### `npm run build` fails to minify
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify) -->

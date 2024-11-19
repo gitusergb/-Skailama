@@ -1,23 +1,34 @@
-import logo from './logo.svg';
 import './App.css';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { ProjectsProvider } from './components/ProjectsContext';
+
+import AddPodcast from './components/AddPodcast';
+import Login from './components/Login';
+import NewProject from './components/NewProject';
+import HomePage from './components/HomePage';
+import UserSettings from './components/UserSettings';
+import Transcript from './components/Transcript';
+import Register from './components/Register';
+import Auth from './Context/AuthContext';
+import Protect from './Context/Protect'
+
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <ProjectsProvider>
+      <Router>
+        <Routes>
+          <Route path="/signup" element={<Auth><Register /></Auth>} />
+          <Route path="/" element={<Auth><Login /></Auth>} />
+          <Route path="/newProject" element={<Protect><NewProject /></Protect>} />
+          <Route path="/homePage" element={<Protect><HomePage /></Protect>} /> 
+          <Route path="/addPodcast" element={<Protect><AddPodcast /></Protect>} />
+          <Route path="/userSettings" element={<Protect><UserSettings /></Protect>} />
+          <Route path="/transcript" element={<Protect><Transcript /></Protect> } />
+        </Routes>
+      </Router>
+    </ProjectsProvider>
     </div>
   );
 }
