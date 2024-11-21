@@ -1,19 +1,21 @@
 import React, { useState,useEffect } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation , NavLink } from "react-router-dom";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-const AddPodcast = () => {
 
+const AddPodcast = () => {
+let token = localStorage.getItem("token")
   const username = localStorage.getItem('username');
   const email = localStorage.getItem('email');
-
-  const [name, setname] = useState('');
-  const [fileurl, setfileurl] = useState('');
+  const [formData, setFormData] = useState({
+    title: "",
+    fileUrl: "",
+  });
   
     const navigate = useNavigate();
     const location = useLocation();
-  
+    const [user, setUser] = useState({ username: "", email: "", avatar: "" });
     const project = location.state?.project || {};
     
     // State to manage episodes and notification visibility
@@ -45,7 +47,7 @@ useEffect(() => {
           }
         }
       );
-      console.error("response:", response );
+     // console.error("response:", response );
       if (!response) {
         throw new Error("Failed to fetch project details");
       }
@@ -57,43 +59,49 @@ useEffect(() => {
 
   fetchProjectDetails();
 }, []);
-    //To add a new video/podcast
-    const addVideo= async(e) => {
+    //To add a new video
+    const addVideo_pod= async(e) => {
         e.preventDefault();
         const projectId = localStorage.getItem("selected ProjectId");
-        const podcast = {
-          id: rssFiles.length + 1, 
-          name,
-          fileurl,
-          uploadDate: new Date().toLocaleString("en-GB"),
-          status: "In Progress",
+        const payload = {
+          ...formData,
+          description: "description", 
+          transcript: "transcript",   
+          status: "pending",                 
         };
-      
-    try {
-      const response = await axios.post(
-        `https://podcastbe.onrender.com/podcasts/${projectId}`,
-        podcast,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem('token')}`
-          },
-        }
-      );
+    console.log("video data", payload )
+      console.log("projectId", projectId)
+      try {
+        const response = await axios.post(`https://podcastbe.onrender.com/podcasts/${projectId}`, payload);
+        console.log("Data posted successfully:", response.data);
 
+        console.log("response.status", response.status)
+    
       if (response.status === 201 || response.status === 200) {
-        setRssFiles((prev) => [...prev, podcast]);
-        setYoutubeFormVisible(false);
+        let newPodcast = response.data.podcast;
+        setRssFiles((prev) => [...prev, newPodcast]);
         alert("Video added successfully!");
+        formData.title=(" ");
+        formData.fileUrl=(" ");
+        setYoutubeFormVisible(false);
       }
-    } catch (error) {
-      console.error("Error adding video:", error);
-      alert("Failed to add video.");
-    }
+      } catch (error) {
+        // console.error("Error posting data:", error);
+        console.error("Error adding video:", error);
+        alert("Failed to add video.");
+      }
+     };
+    const handleChange = (e) => {
+      const { name, value } = e.target;
+      setFormData({ ...formData, [name]: value });
     };
+
+    // const upload = async()=>{
+
+    // }
   
     // Toggle notification visibility
-    const toggleNotifications = () => setIsNotificationOpen((prev) => !prev);
+  const toggleNotifications = () => setIsNotificationOpen((prev) => !prev);
 
     const handleLogout = async () => {
       try {
@@ -236,13 +244,13 @@ const handleDelete = async (id) => {
                             </div>
                         </div>
                         
-                         {/* Content Sections */}
+                         {/* Content upload mp4  file  Sections */}
                             {currentView === "upload" && (
                             <div className="mt-6 p-6 bg-white shadow-md rounded-lg text-center">
                                 <i className="fas fa-cloud-upload-alt text-6xl text-purple-500 mb-4"></i>
-                                                <p className="text-gray-600">Select a file or drag and drop here (Podcast Media or Transcription Text)</p>
-                                                <p className="text-gray-400 mt-2">MP4, MOV, MP3, WAV, PDF, DOCX or TXT file</p>
-                                                <button className="mt-4 px-6 py-2 text-purple-600 bg-white rounded-lg ">Select File</button>
+                                 <p className="text-gray-600">Select a file or drag and drop here (Podcast Media or Transcription Text)</p>
+                                  <p className="text-gray-400 mt-2">MP4, MOV, MP3, WAV, PDF, DOCX or TXT file</p>
+                                  <button className="mt-4 px-6 py-2 text-purple-600 bg-white rounded-lg " >Select File</button>
                             </div>
                             )}
                              {currentView === "rss" && (
@@ -305,22 +313,22 @@ const handleDelete = async (id) => {
               <h2 className="text-xl font-semibold text-gray-800 ">
                 Upload From Youtube</h2>
               </div>
-              <form onSubmit={addVideo}>
+              <form onSubmit={addVideo_pod}>
                                 <div className="mb-4">
                                     <label className="block text-gray-700 mb-2">Name</label>
                                     <input type="text" 
-                                     name="name"
-                                     value={name}
-                                     onChange={(e) => setname(e.target.value)}
+                                     name="title"
+                                        value={formData.title}
+                                        onChange={handleChange}
                                         className="w-full p-2 border border-gray-300 rounded"
                                         required/>
                                 </div>
                                 <div className="mb-4">
                                     <label className="block text-gray-700 mb-2">Link</label>
                                     <input type="url" 
-                                            name="link"
-                                            value={fileurl}
-                                            onChange={(e) => setfileurl(e.target.value)}
+                                            name="fileUrl"
+                                            value={formData.fileUrl}
+                                            onChange={handleChange}
                                             className="w-full p-2 border border-gray-300 rounded"/>
                                 </div>
                                 <button type="submit" 

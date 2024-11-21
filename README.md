@@ -44,7 +44,7 @@
 
 **Gauri Bidwai**  
 - GitHub: [github.com/gitusergb](https://github.com/gitusergb)  
-- Netlify Deployment: [https://dapper-crisp-1a12ab.netlify.app/](https://dapper-crisp-1a12ab.netlify.app/)
+- Netlify Deployment: [https://dapper-pudding-022546.netlify.app/](https://dapper-pudding-022546.netlify.app/)
 
 <!-- 
 
