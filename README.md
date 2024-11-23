@@ -26,7 +26,7 @@
 ### Steps:
 1. Clone the repository:
    ```bash
-   git clone https://github.com/gitusergb/-Skailama
+   git clone https://github.com/gitusergb/PodFlex
    ```
 
 2. Install dependencies:
